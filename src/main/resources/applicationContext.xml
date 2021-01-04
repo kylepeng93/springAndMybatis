@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
@@ -18,6 +19,8 @@
 		location="db.properties" />
 	<context:annotation-config />
 
+	<bean id="helloMessage" class="com.linux4fun.pojo.HelloMessage" p:message="hello world" />
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
@@ -28,7 +31,10 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="typeAliasesPackage" value="com.linux4fun.pojo" />
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="com/linux4fun/mapper/*.xml" />
+		<!--指定mybatis配置文件的位置-->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!--指定mapper接口文件的位置-->
+		<property name="mapperLocations" value="classpath:com/linux4fun/mapper/*.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.linux4fun.mapper" />
