@@ -8,7 +8,10 @@
 	<select id="list" resultMap="getCategoryList">
 		select id uid, name from category
 	</select>
-	<resultMap id="getCategoryList" type="Category">
+	<resultMap id="getCategoryList" type="com.linux4fun.pojo.Category">
 		<result property="id" column="uid" />
 	</resultMap>
+	<insert id="insertCategory">
+		insert into category (name) values(#{name})
+	</insert>
 </mapper>

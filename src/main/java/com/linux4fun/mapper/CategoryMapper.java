@@ -8,4 +8,6 @@ public interface CategoryMapper {
 	
 	List<Category> list();
 
+	void insertCategory(String name);
+
 }

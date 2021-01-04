@@ -19,6 +19,12 @@
 		location="db.properties" />
 	<context:annotation-config />
 
+	<!-- 开启mvc注解 -->
+	<mvc:annotation-driven/>
+
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
 	<bean id="helloMessage" class="com.linux4fun.pojo.HelloMessage" p:message="hello world" />
 
 	<bean id="dataSource"
@@ -28,7 +34,13 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<!-- 注入事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="typeAliasesPackage" value="com.linux4fun.pojo" />
 		<property name="dataSource" ref="dataSource" />
 		<!--指定mybatis配置文件的位置-->
