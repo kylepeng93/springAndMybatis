@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,6 +45,7 @@ public class MainTest {
 
 	@Test
 	@Transactional
+//	@Rollback(value = false) 阻止事务回滚
 	public void batchInsert() {
 		List<String> names = new ArrayList<>();
 		names.add("pengkai");
@@ -52,7 +54,7 @@ public class MainTest {
 		for (String name : names) {
 			categoryMapper.insertCategory(name);
 			// 添加事务注解的情况下会自动回滚，否则不会回滚
-			throw new RuntimeException("中断事务，测试是否回滚！");
+//			throw new RuntimeException("中断事务，测试是否回滚！");
 		}
 	}
 
